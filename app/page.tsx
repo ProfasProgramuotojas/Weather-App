@@ -1,3 +1,9 @@
+import Autocomplete from "@/app/components/Autocomplete";
+
 export default function Home() {
-  return <div>Hello World!</div>;
+  return (
+    <div>
+      <Autocomplete />
+    </div>
+  );
 }
