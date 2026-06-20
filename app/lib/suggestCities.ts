@@ -1,9 +1,11 @@
+"use server";
+
 import cities from "../data/cities.json";
 import { CityType } from "@/app/types/CityType";
 
 const LIMIT = 5;
 
-const suggestCities = (query: string): CityType[] => {
+const suggestCities = async (query: string): Promise<CityType[]> => {
   const autocompletedCities = cities.filter(
     (c) => c.name.slice(0, query.length) === query,
   );

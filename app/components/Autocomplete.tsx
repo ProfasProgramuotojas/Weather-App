@@ -1,14 +1,21 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import suggestCities from "@/app/lib/suggestCities";
 import { CityType } from "@/app/types/CityType";
 
 const Autocomplete = () => {
   const [query, setQuery] = useState("");
+  const [suggestedCities, setSuggestedCities] = useState<CityType[]>([]);
+  const [loading, setLoading] = useState(false);
 
-  const suggestedCities = useMemo(() => {
-    return suggestCities(query);
+  useEffect(() => {
+    const fetch = async () => {
+      setLoading(true);
+      setSuggestedCities(await suggestCities(query));
+      setLoading(false);
+    };
+    void fetch();
   }, [query]);
 
   return (
@@ -20,11 +27,17 @@ const Autocomplete = () => {
           setQuery(e.target.value);
         }}
       />
-      <div>
-        {suggestedCities.map((c: CityType) => (
-          <div key={c.name}>{c.ascii}</div>
-        ))}
-      </div>
+      {loading ? (
+        <div>Loading</div>
+      ) : (
+        <div>
+          {suggestedCities.map((c: CityType, i: number) => (
+            <div key={i}>
+              {c.ascii} {c.country}
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };
