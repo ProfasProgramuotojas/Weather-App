@@ -5,8 +5,10 @@ import { CityType } from "@/app/types/CityType";
 import { useQuery } from "@tanstack/react-query";
 import suggestCities from "@/app/lib/suggestCities";
 import { useRouter } from "next/navigation";
+import Loader from "@/app/components/Loader";
+import useLocalStorage from "@/app/hooks/useLocalStorage";
 
-const AutocompleteCity = ({ city }: { city: CityType }) => {
+const AutocompleteOption = ({ city }: { city: CityType }) => {
   const router = useRouter();
   return (
     <button
@@ -23,12 +25,14 @@ const AutocompleteCity = ({ city }: { city: CityType }) => {
 };
 
 const Autocomplete = () => {
+  const { set, get, remove } = useLocalStorage("autocomplete");
   const [query, setQuery] = useState("");
 
   const { data, isFetching } = useQuery({
     queryKey: ["cities", query],
     queryFn: async () => await suggestCities(query),
   });
+
   return (
     <div>
       <input
@@ -39,11 +43,11 @@ const Autocomplete = () => {
         }}
       />
       {isFetching || !data ? (
-        <div>Loading</div>
+        <Loader />
       ) : (
         <div className="flex flex-col gap-2">
           {data.map((c: CityType) => (
-            <AutocompleteCity city={c} key={c.id} />
+            <AutocompleteOption city={c} key={c.id} />
           ))}
         </div>
       )}

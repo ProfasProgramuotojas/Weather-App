@@ -3,6 +3,7 @@ import fetchWeather from "@/app/lib/fetchWeather";
 import { useQuery } from "@tanstack/react-query";
 import { WeatherCard } from "@/app/components/weather/WeatherCard";
 import { useSearchParams } from "next/navigation";
+import Loader from "@/app/components/Loader";
 
 const Weather = () => {
   const params = useSearchParams();
@@ -17,8 +18,8 @@ const Weather = () => {
     queryKey: ["weather", lon, lat],
     enabled: !(lon === null || lat === null),
   });
-
-  if (isFetching || !data || !name || !country) return null;
+  if (isFetching) return <Loader />;
+  if (!data || !name || !country) return null;
   return <WeatherCard currentWeather={data} name={name} country={country} />;
 };
 

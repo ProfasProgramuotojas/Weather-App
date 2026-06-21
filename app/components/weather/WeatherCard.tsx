@@ -24,13 +24,13 @@ export const WeatherCard = ({
           <WeatherDataCard
             title={"Rain"}
             value={currentWeather.rain}
-            units={"CM"}
+            units={"mm"}
           />
         ) : (
           <WeatherDataCard
             title={"Snow"}
             value={currentWeather.snowfall}
-            units={"CM"}
+            units={"cm"}
           />
         )}
 
@@ -42,7 +42,7 @@ export const WeatherCard = ({
         <WeatherDataCard
           title={"Wind"}
           value={currentWeather.wind_speed_10m}
-          units={"KM/H"}
+          units={"km/h"}
         />
       </div>
 
@@ -50,7 +50,7 @@ export const WeatherCard = ({
         <WeatherDataCard
           title={"UV Index"}
           value={currentWeather.uv_index}
-          units={"CM"}
+          units={"index"}
         />
         <WeatherDataCard
           title={"Apparent Temp"}
