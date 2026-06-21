@@ -1,44 +1,34 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import suggestCities from "@/app/lib/suggestCities";
+import { useState } from "react";
 import { CityType } from "@/app/types/CityType";
+import { useQuery } from "@tanstack/react-query";
+import suggestCities from "@/app/lib/suggestCities";
+import { useRouter } from "next/navigation";
 
-const AutocompleteCity = ({
-  city,
-  onSelect,
-}: {
-  city: CityType;
-  onSelect: (c: CityType) => void;
-}) => {
+const AutocompleteCity = ({ city }: { city: CityType }) => {
+  const router = useRouter();
   return (
     <button
       className="hover:cursor-pointer border"
-      onClick={() => onSelect(city)}
+      onClick={() => {
+        router.push(
+          `/?lat=${city.lat}&lon=${city.lon}&name=${city.name}&country=${city.country}`,
+        );
+      }}
     >
       {city.ascii} {city.country}
     </button>
   );
 };
 
-const Autocomplete = ({
-  onCitySelect,
-}: {
-  onCitySelect: (c: CityType) => void;
-}) => {
+const Autocomplete = () => {
   const [query, setQuery] = useState("");
-  const [suggestedCities, setSuggestedCities] = useState<CityType[]>([]);
-  const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    const fetch = async () => {
-      setLoading(true);
-      setSuggestedCities(await suggestCities(query));
-      setLoading(false);
-    };
-    void fetch();
-  }, [query]);
-
+  const { data, isFetching } = useQuery({
+    queryKey: ["cities", query],
+    queryFn: async () => await suggestCities(query),
+  });
   return (
     <div>
       <input
@@ -48,18 +38,12 @@ const Autocomplete = ({
           setQuery(e.target.value);
         }}
       />
-      {loading ? (
+      {isFetching || !data ? (
         <div>Loading</div>
       ) : (
         <div className="flex flex-col gap-2">
-          {suggestedCities.map((c: CityType) => (
-            <AutocompleteCity
-              city={c}
-              key={c.id}
-              onSelect={(c) => {
-                onCitySelect(c);
-              }}
-            />
+          {data.map((c: CityType) => (
+            <AutocompleteCity city={c} key={c.id} />
           ))}
         </div>
       )}

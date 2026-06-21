@@ -5,10 +5,13 @@ import { fetchWeatherApi } from "openmeteo";
 import { API_URL, WEATHER_VARIABLES } from "@/app/constants/weather";
 import { CurrentWeatherType } from "@/app/types/WeatherType";
 
-const fetchWeather = async (city: CityType): Promise<CurrentWeatherType> => {
+const fetchWeather = async (
+  lat: number,
+  lon: number,
+): Promise<CurrentWeatherType> => {
   const params = {
-    latitude: city.lat,
-    longitude: city.lon,
+    latitude: lat,
+    longitude: lon,
     current: WEATHER_VARIABLES,
   };
 

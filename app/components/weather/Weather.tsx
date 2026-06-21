@@ -1,17 +1,25 @@
 import React from "react";
-import { CityType } from "@/app/types/CityType";
 import fetchWeather from "@/app/lib/fetchWeather";
 import { useQuery } from "@tanstack/react-query";
 import { WeatherCard } from "@/app/components/weather/WeatherCard";
+import { useSearchParams } from "next/navigation";
 
-const Weather = ({ city }: { city: CityType }) => {
+const Weather = () => {
+  const params = useSearchParams();
+
+  const lon = params.get("lon");
+  const lat = params.get("lat");
+  const name = params.get("name");
+  const country = params.get("country");
+
   const { data, isFetching } = useQuery({
-    queryFn: async () => await fetchWeather(city),
-    queryKey: ["weather", city],
+    queryFn: async () => await fetchWeather(Number(lat), Number(lon)),
+    queryKey: ["weather", lon, lat],
+    enabled: !(lon === null || lat === null),
   });
-  console.log(data);
-  if (isFetching || !data) return null;
-  return <WeatherCard currentWeather={data} city={city} />;
+
+  if (isFetching || !data || !name || !country) return null;
+  return <WeatherCard currentWeather={data} name={name} country={country} />;
 };
 
 export default Weather;

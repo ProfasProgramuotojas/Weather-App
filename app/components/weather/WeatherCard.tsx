@@ -1,13 +1,14 @@
 import { CurrentWeatherType } from "@/app/types/WeatherType";
-import { CityType } from "@/app/types/CityType";
 import { WeatherDataCard } from "@/app/components/weather/WeatherDataCard";
 
 export const WeatherCard = ({
   currentWeather,
-  city,
+  name,
+  country,
 }: {
   currentWeather: CurrentWeatherType;
-  city: CityType;
+  name: string;
+  country: string;
 }) => {
   return (
     <div
@@ -16,7 +17,7 @@ export const WeatherCard = ({
       }
     >
       <h1 className={"font-bold text-2xl"}>
-        {city.ascii} {city.country}
+        {name} {country}
       </h1>
       <div className={"flex gap-5 justify-center"}>
         {currentWeather.temperature_2m > 0 ? (
