@@ -18,19 +18,22 @@ const addPrevCity = (prevCities: CityType[], city: CityType) => {
   return newPrevCities;
 };
 
-const AutocompleteOption = ({ city }: { city: CityType }) => {
+const AutocompleteOption = ({
+  city,
+  prevCities,
+  setPrevCities,
+}: {
+  city: CityType;
+  prevCities: CityType[];
+  setPrevCities: (c: CityType[]) => void;
+}) => {
   const router = useRouter();
-
-  const { storedValue: prevCities, setValue } = useLocalStorage(
-    "autocomplete",
-    [],
-  );
 
   return (
     <button
       className="hover:cursor-pointer border"
       onClick={() => {
-        setValue(addPrevCity(prevCities, city));
+        setPrevCities(addPrevCity(prevCities, city));
         router.push(
           `/?lat=${city.lat}&lon=${city.lon}&name=${city.name}&country=${city.country}`,
         );
@@ -44,11 +47,10 @@ const AutocompleteOption = ({ city }: { city: CityType }) => {
 const Autocomplete = () => {
   const [query, setQuery] = useState("");
 
-  const {
-    storedValue: prevCities,
-    setValue,
-    removeValue,
-  } = useLocalStorage("autocomplete", []);
+  const { storedValue: prevCities, setValue: setPrevCities } = useLocalStorage(
+    "autocomplete",
+    [],
+  );
 
   const { data, isFetching } = useQuery({
     queryKey: ["cities", query],
@@ -68,13 +70,17 @@ const Autocomplete = () => {
         <Loader />
       ) : (
         <div className="flex flex-col gap-2">
-          {query
-            ? data.map((c: CityType) => (
-                <AutocompleteOption city={c} key={c.id} />
-              ))
-            : prevCities.map((c: CityType) => (
-                <AutocompleteOption city={c} key={c.id} />
-              ))}
+          {/*If no query and no prevCities, then shows the largest cities, if no query and there is prevCities, then show prevCities*/}
+          {((!query && !prevCities) || query ? data : prevCities).map(
+            (c: CityType) => (
+              <AutocompleteOption
+                city={c}
+                key={c.id}
+                prevCities={prevCities}
+                setPrevCities={setPrevCities}
+              />
+            ),
+          )}
         </div>
       )}
     </div>
