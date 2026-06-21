@@ -2,22 +2,10 @@
 
 import { CityType } from "@/app/types/CityType";
 import { fetchWeatherApi } from "openmeteo";
+import { WeatherType } from "@/app/types/WeatherType";
+import { API_URL, WEATHER_VARIABLES } from "@/app/constants/weather";
 
-const API_URL = "https://api.open-meteo.com/v1/forecast";
-
-const WEATHER_VARIABLES = [
-  "temperature_2m",
-  "apparent_temperature",
-  "rain",
-  "relative_humidity_2m",
-  "showers",
-  "snowfall",
-  "cloud_cover",
-  "wind_speed_10m",
-  "uv_index",
-];
-
-const fetchWeather = async (city: CityType) => {
+const fetchWeather = async (city: CityType): Promise<WeatherType> => {
   const params = {
     latitude: city.lat,
     longitude: city.lon,
@@ -57,7 +45,7 @@ const fetchWeather = async (city: CityType) => {
     weatherData.current[key] = current.variables(index)!.value();
     weatherData.hourly[key] = hourly.variables(index)!.valuesArray();
   }
-  return weatherData;
+  return weatherData as WeatherType;
 };
 
 export default fetchWeather;

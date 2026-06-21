@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import Providers from "@/app/Providers/Providers";
+import { ReactNode } from "react";
 
 export const metadata: Metadata = {
   title: "Weather App",
@@ -9,11 +11,13 @@ export const metadata: Metadata = {
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: ReactNode;
 }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <Providers>{children}</Providers>
+      </body>
     </html>
   );
 }
