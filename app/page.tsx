@@ -3,7 +3,7 @@
 import Autocomplete from "@/app/components/Autocomplete";
 import { useState } from "react";
 import { CityType } from "@/app/types/CityType";
-import Weather from "@/app/components/Weather";
+import Weather from "@/app/components/weather/Weather";
 
 export default function Home() {
   const [city, setCity] = useState<CityType | null>(null);
