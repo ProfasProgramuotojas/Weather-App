@@ -57,6 +57,8 @@ const Autocomplete = () => {
     queryFn: async () => await suggestCities(query),
   });
 
+  console.log(data);
+
   return (
     <div>
       <input
@@ -71,7 +73,7 @@ const Autocomplete = () => {
       ) : (
         <div className="flex flex-col gap-2">
           {/*If no query and no prevCities, then shows the largest cities, if no query and there is prevCities, then show prevCities*/}
-          {((!query && !prevCities) || query ? data : prevCities).map(
+          {((!query && !prevCities.length) || query ? data : prevCities).map(
             (c: CityType) => (
               <AutocompleteOption
                 city={c}
