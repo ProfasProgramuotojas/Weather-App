@@ -4,7 +4,28 @@ import { useEffect, useState } from "react";
 import suggestCities from "@/app/lib/suggestCities";
 import { CityType } from "@/app/types/CityType";
 
-const Autocomplete = () => {
+const AutocompleteCity = ({
+  city,
+  onSelect,
+}: {
+  city: CityType;
+  onSelect: (c: CityType) => void;
+}) => {
+  return (
+    <button
+      className="hover:cursor-pointer border"
+      onClick={() => onSelect(city)}
+    >
+      {city.ascii} {city.country}
+    </button>
+  );
+};
+
+const Autocomplete = ({
+  onCitySelect,
+}: {
+  onCitySelect: (c: CityType) => void;
+}) => {
   const [query, setQuery] = useState("");
   const [suggestedCities, setSuggestedCities] = useState<CityType[]>([]);
   const [loading, setLoading] = useState(false);
@@ -30,11 +51,15 @@ const Autocomplete = () => {
       {loading ? (
         <div>Loading</div>
       ) : (
-        <div>
-          {suggestedCities.map((c: CityType, i: number) => (
-            <div key={i}>
-              {c.ascii} {c.country}
-            </div>
+        <div className="flex flex-col gap-2">
+          {suggestedCities.map((c: CityType) => (
+            <AutocompleteCity
+              city={c}
+              key={c.id}
+              onSelect={(c) => {
+                onCitySelect(c);
+              }}
+            />
           ))}
         </div>
       )}
