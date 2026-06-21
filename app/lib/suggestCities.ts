@@ -7,10 +7,10 @@ import { LIMIT } from "@/app/constants/autocomplete";
 const cities = citiesData as CityType[];
 
 //top  5 most populated cities in the world
-// const topCities = cities.slice(0, LIMIT);
+const topCities = cities.slice(0, LIMIT);
 
 const suggestCities = async (query: string): Promise<CityType[]> => {
-  if (!query) return [];
+  if (!query) return topCities;
 
   //cities who start with query
   const autocompletedCities = cities.filter(

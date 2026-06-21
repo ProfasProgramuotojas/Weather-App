@@ -18,8 +18,10 @@ const Weather = () => {
     queryKey: ["weather", lon, lat],
     enabled: !(lon === null || lat === null),
   });
+
   if (isFetching) return <Loader />;
   if (!data || !name || !country) return null;
+
   return <WeatherCard currentWeather={data} name={name} country={country} />;
 };
 

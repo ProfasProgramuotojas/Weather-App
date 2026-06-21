@@ -6,14 +6,31 @@ import { useQuery } from "@tanstack/react-query";
 import suggestCities from "@/app/lib/suggestCities";
 import { useRouter } from "next/navigation";
 import Loader from "@/app/components/Loader";
-import useLocalStorage from "@/app/hooks/useLocalStorage";
+import { useLocalStorage } from "@/app/hooks/useLocalStorage";
+import { LIMIT } from "@/app/constants/autocomplete";
+
+const addPrevCity = (prevCities: CityType[], city: CityType) => {
+  const newPrevCities = [...prevCities];
+  newPrevCities.unshift(city);
+
+  if (prevCities.length >= LIMIT) newPrevCities.pop();
+
+  return newPrevCities;
+};
 
 const AutocompleteOption = ({ city }: { city: CityType }) => {
   const router = useRouter();
+
+  const { storedValue: prevCities, setValue } = useLocalStorage(
+    "autocomplete",
+    [],
+  );
+
   return (
     <button
       className="hover:cursor-pointer border"
       onClick={() => {
+        setValue(addPrevCity(prevCities, city));
         router.push(
           `/?lat=${city.lat}&lon=${city.lon}&name=${city.name}&country=${city.country}`,
         );
@@ -25,8 +42,13 @@ const AutocompleteOption = ({ city }: { city: CityType }) => {
 };
 
 const Autocomplete = () => {
-  const { set, get, remove } = useLocalStorage("autocomplete");
   const [query, setQuery] = useState("");
+
+  const {
+    storedValue: prevCities,
+    setValue,
+    removeValue,
+  } = useLocalStorage("autocomplete", []);
 
   const { data, isFetching } = useQuery({
     queryKey: ["cities", query],
@@ -46,9 +68,13 @@ const Autocomplete = () => {
         <Loader />
       ) : (
         <div className="flex flex-col gap-2">
-          {data.map((c: CityType) => (
-            <AutocompleteOption city={c} key={c.id} />
-          ))}
+          {query
+            ? data.map((c: CityType) => (
+                <AutocompleteOption city={c} key={c.id} />
+              ))
+            : prevCities.map((c: CityType) => (
+                <AutocompleteOption city={c} key={c.id} />
+              ))}
         </div>
       )}
     </div>
