@@ -29,10 +29,10 @@ const suggestCities = async (query: string): Promise<CityType[]> => {
       .filter((c) => c.name.includes(query) || c.ascii.includes(query))
       .filter((c) => !autocompletedCities.some((ac) => ac.id === c.id));
 
+    //returning all searches prioritizing autocomplete
     return [...autocompletedCities, ...searchedCities].slice(0, LIMIT);
   } catch (e) {
-    serverLog(e, "suggestCities.ts", "error");
-    return [];
+    return serverLog(e, "suggestCities.ts");
   }
 };
 

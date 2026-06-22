@@ -32,8 +32,7 @@ const fetchWeather = async (
 
     return currentWeather as CurrentWeatherType;
   } catch (err) {
-    serverLog(err, "fetchWeather.ts", "error");
-    return null;
+    return serverLog(err, "fetchWeather.ts");
   }
 };
 
