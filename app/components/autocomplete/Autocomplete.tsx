@@ -14,7 +14,7 @@ const Autocomplete = () => {
     queryKey: ["cities", query],
     queryFn: async () => await suggestCities(query),
   });
-
+  console.log(data);
   return (
     <div>
       <AutocompleteInput query={query} setQuery={setQuery} />

@@ -10,10 +10,9 @@ test("1. Empty Prev Cities", async () => {
   const newCities = addPrevCity(prevCities, city);
 
   expect(newCities[0]).toBe(city);
+  expect(newCities.length).toBe(1);
 });
 
-//full arr => LIMIT = LIMIT
-//arr with duplicate => only 1 case and its in the front
 test("2. Full Prev City Array", async () => {
   const prevCities = TEST_EXAMPLE_CITIES.slice(0, TEST_LIMIT) as CityType[];
   const city = TEST_EXAMPLE_CITIES[5];
@@ -21,6 +20,7 @@ test("2. Full Prev City Array", async () => {
   const newCities = addPrevCity(prevCities, city);
 
   expect(newCities[0]).toBe(city);
+  expect(newCities[1]).toBe(prevCities[0]);
   expect(newCities.length).toBe(TEST_LIMIT);
 });
 
@@ -44,4 +44,5 @@ test("3. Prev Cities have new city already", async () => {
   Object.values(cityCount).forEach((value) => {
     expect(value).toBe(1);
   });
+  expect(newCities.length).toBe(TEST_LIMIT);
 });

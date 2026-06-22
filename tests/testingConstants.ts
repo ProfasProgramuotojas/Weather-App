@@ -1,3 +1,5 @@
+import { LIMIT } from "@/app/constants/autocomplete";
+
 export const TEST_EXAMPLE_CITIES = [
   {
     id: 1796236,
@@ -101,4 +103,4 @@ export const TEST_EXAMPLE_CITIES = [
   },
 ];
 
-export const TEST_LIMIT = 5;
+export const TEST_LIMIT = LIMIT;

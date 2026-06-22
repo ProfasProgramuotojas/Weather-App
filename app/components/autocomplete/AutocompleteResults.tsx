@@ -38,7 +38,7 @@ const AutocompleteOption = ({
         );
       }}
     >
-      {city.ascii} {city.country}
+      {city.name} {city.country}
     </button>
   );
 };
