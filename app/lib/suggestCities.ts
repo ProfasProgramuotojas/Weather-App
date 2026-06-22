@@ -24,8 +24,7 @@ const suggestCities = async (query: string): Promise<CityType[]> => {
         c.ascii.toLowerCase().slice(0, queryLength) === searchQuery,
     );
 
-    if (autocompletedCities.length >= LIMIT)
-      return autocompletedCities.slice(0, LIMIT);
+    if (autocompletedCities.length >= LIMIT) return autocompletedCities;
 
     //cities who include query in them
     const searchedCities = cities
@@ -37,7 +36,7 @@ const suggestCities = async (query: string): Promise<CityType[]> => {
       .filter((c) => !autocompletedCities.some((ac) => ac.id === c.id));
 
     //returning all searches prioritizing autocomplete
-    return [...autocompletedCities, ...searchedCities].slice(0, LIMIT);
+    return [...autocompletedCities, ...searchedCities];
   } catch (e) {
     return serverLog(e, "suggestCities.ts");
   }
