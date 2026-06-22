@@ -3,7 +3,8 @@ import { CityType } from "@/app/types/CityType";
 import { useRouter } from "next/navigation";
 import { LIMIT } from "@/app/constants/autocomplete";
 
-const addPrevCity = (prevCities: CityType[], city: CityType) => {
+//exported for testing
+export const addPrevCity = (prevCities: CityType[], city: CityType) => {
   const newPrevCities = [...prevCities];
   const i = newPrevCities.findIndex((c) => c.id === city.id);
   if (i !== -1) {
