@@ -1,5 +1,6 @@
 import { CurrentWeatherType } from "@/app/types/WeatherType";
 import { WeatherDataCard } from "@/app/components/weather/WeatherDataCard";
+import { WEATHER_CODES } from "@/app/constants/weather";
 
 export const WeatherCard = ({
   currentWeather,
@@ -10,6 +11,16 @@ export const WeatherCard = ({
   name: string;
   country: string;
 }) => {
+  const weatherCodeKeys = Object.keys(WEATHER_CODES);
+  const goal = currentWeather.weather_code;
+  const closest = weatherCodeKeys.reduce(function (prev, curr) {
+    return Math.abs(Number(curr) - goal) < Math.abs(Number(prev) - goal)
+      ? curr
+      : prev;
+  });
+
+  const weatherDesc = WEATHER_CODES[Number(closest)];
+
   return (
     <div
       className={
@@ -19,6 +30,9 @@ export const WeatherCard = ({
       <h1 className={"font-bold text-2xl"}>
         {name} {country}
       </h1>
+      <p>
+        {weatherDesc.label} {weatherDesc.emoji}
+      </p>
       <div className={"flex gap-5 justify-center"}>
         {currentWeather.temperature_2m > 0 ? (
           <WeatherDataCard

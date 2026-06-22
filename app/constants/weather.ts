@@ -1,4 +1,6 @@
-export const WEATHER_VARIABLES = [
+import { WeatherCondition } from "@/app/types/WeatherType";
+
+const WEATHER_VARIABLES = [
   "temperature_2m",
   "apparent_temperature",
   "rain",
@@ -6,6 +8,41 @@ export const WEATHER_VARIABLES = [
   "cloud_cover",
   "wind_speed_10m",
   "uv_index",
+  "weather_code",
 ] as const;
 
-export const API_URL = "https://api.open-meteo.com/v1/forecast";
+const API_URL = "https://api.open-meteo.com/v1/forecast";
+
+// AI generated
+const WEATHER_CODES: Record<number, WeatherCondition> = {
+  0: { label: "Clear sky", emoji: "☀️" },
+  1: { label: "Mainly clear", emoji: "🌤️" },
+  2: { label: "Partly cloudy", emoji: "⛅" },
+  3: { label: "Overcast", emoji: "☁️" },
+  45: { label: "Fog", emoji: "🌫️" },
+  48: { label: "Depositing rime fog", emoji: "🌫️" },
+  51: { label: "Light drizzle", emoji: "🌦️" },
+  53: { label: "Moderate drizzle", emoji: "🌦️" },
+  55: { label: "Dense drizzle", emoji: "🌦️" },
+  56: { label: "Light freezing drizzle", emoji: "🌧️" },
+  57: { label: "Dense freezing drizzle", emoji: "🌧️" },
+  61: { label: "Slight rain", emoji: "🌧️" },
+  63: { label: "Moderate rain", emoji: "🌧️" },
+  65: { label: "Heavy rain", emoji: "🌧️" },
+  66: { label: "Light freezing rain", emoji: "🌧️" },
+  67: { label: "Heavy freezing rain", emoji: "🌧️" },
+  71: { label: "Slight snowfall", emoji: "🌨️" },
+  73: { label: "Moderate snowfall", emoji: "🌨️" },
+  75: { label: "Heavy snowfall", emoji: "❄️" },
+  77: { label: "Snow grains", emoji: "🌨️" },
+  80: { label: "Slight rain showers", emoji: "🌦️" },
+  81: { label: "Moderate rain showers", emoji: "🌧️" },
+  82: { label: "Violent rain showers", emoji: "⛈️" },
+  85: { label: "Slight snow showers", emoji: "🌨️" },
+  86: { label: "Heavy snow showers", emoji: "❄️" },
+  95: { label: "Thunderstorm", emoji: "⛈️" },
+  96: { label: "Thunderstorm with slight hail", emoji: "⛈️" },
+  99: { label: "Thunderstorm with heavy hail", emoji: "⛈️" },
+};
+
+export { WEATHER_CODES, WEATHER_VARIABLES, API_URL };

@@ -21,7 +21,7 @@ const Weather = () => {
 
   if (isFetching) return <Loader />;
   if (!data || !name || !country) return null;
-
+  console.log(data);
   return <WeatherCard currentWeather={data} name={name} country={country} />;
 };
 

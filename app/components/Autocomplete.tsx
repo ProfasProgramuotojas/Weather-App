@@ -10,9 +10,8 @@ import { useLocalStorage } from "@/app/hooks/useLocalStorage";
 import { LIMIT } from "@/app/constants/autocomplete";
 
 const addPrevCity = (prevCities: CityType[], city: CityType) => {
-  if (prevCities.some((pc) => pc.id === city.id)) {
-    return prevCities;
-  }
+  if (prevCities.some((pc) => pc.id === city.id)) return prevCities;
+
   const newPrevCities = [...prevCities];
   newPrevCities.unshift(city);
 

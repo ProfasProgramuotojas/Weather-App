@@ -6,5 +6,11 @@ export type CurrentWeatherType = {
   temperature_2m: number;
   uv_index: number;
   wind_speed_10m: number;
+  weather_code: number;
   time: Date;
+};
+
+export type WeatherCondition = {
+  label: string;
+  emoji: string;
 };
