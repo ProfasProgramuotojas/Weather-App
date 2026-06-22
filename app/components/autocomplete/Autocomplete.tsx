@@ -18,7 +18,7 @@ const Autocomplete = () => {
   });
 
   return (
-    <div>
+    <div className="flex flex-col gap-3">
       <AutocompleteInput query={query} setQuery={setQuery} />
       {isLoading ? (
         <Loader />

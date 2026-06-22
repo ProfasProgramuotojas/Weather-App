@@ -12,13 +12,15 @@ export const WeatherDataCard = ({
   return (
     <div
       data-testid={"weather-data-card"}
-      className={
-        "border p-4 rounded-md flex flex-col items-center justify-center"
-      }
+      className="flex flex-col items-center justify-center gap-0.5 rounded-2xl border border-slate-100 bg-slate-50/70 p-4 text-center"
     >
-      <h6 className={"italic text-sm"}>{title}</h6>
-      <h2 className={"font-bold text-xl"}>{value.toFixed(1)}</h2>
-      <h6 className={"italic text-xs"}>{units}</h6>
+      <span className="text-xs font-medium tracking-wide text-slate-400 uppercase">
+        {title}
+      </span>
+      <span className="text-2xl font-semibold text-slate-800">
+        {value.toFixed(1)}
+      </span>
+      <span className="text-xs text-slate-400">{units}</span>
     </div>
   );
 };

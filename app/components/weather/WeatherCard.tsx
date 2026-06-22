@@ -22,18 +22,27 @@ export const WeatherCard = ({
   const weatherDesc = WEATHER_CODES[Number(closest)];
 
   return (
-    <div
-      className={
-        "border w-full p-10 flex gap-10 flex-col justify-center items-center"
-      }
-    >
-      <h1 className={"font-bold text-2xl"} data-testid={"weather-title"}>
+    <div className="flex w-full flex-col items-center gap-6 rounded-3xl border border-slate-200 bg-white/80 p-6 text-center shadow-sm backdrop-blur sm:p-8">
+      <h1
+        className="text-2xl font-bold tracking-tight text-slate-800 sm:text-3xl"
+        data-testid={"weather-title"}
+      >
         {name} {country}
       </h1>
-      <p data-testid={"weather-description"}>
-        {weatherDesc.label} {weatherDesc.emoji}
+
+      <p
+        data-testid={"weather-description"}
+        className="flex flex-col items-center gap-2"
+      >
+        <span aria-hidden={true} className="text-6xl leading-none sm:text-7xl">
+          {weatherDesc.emoji}
+        </span>
+        <span className="text-lg font-medium text-slate-600">
+          {weatherDesc.label}
+        </span>
       </p>
-      <div className={"flex gap-5 justify-center"}>
+
+      <div className="grid w-full grid-cols-2 gap-3 sm:grid-cols-3">
         {currentWeather.temperature_2m > 0 ? (
           <WeatherDataCard
             title={"Rain"}
@@ -58,11 +67,8 @@ export const WeatherCard = ({
           value={currentWeather.wind_speed_10m}
           units={"km/h"}
         />
-      </div>
-
-      <div className={"flex"}>
         <WeatherDataCard
-          title={"UV Index"}
+          title={"UV"}
           value={currentWeather.uv_index}
           units={"index"}
         />
