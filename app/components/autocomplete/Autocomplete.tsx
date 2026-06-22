@@ -23,7 +23,7 @@ const Autocomplete = () => {
       ) : !data || !data.length ? (
         <p>It seems we can't find this city</p>
       ) : (
-        <AutocompleteResults query={query} data={data} />
+        <AutocompleteResults query={query} setQuery={setQuery} data={data} />
       )}
     </div>
   );
