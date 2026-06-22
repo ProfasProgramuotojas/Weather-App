@@ -11,6 +11,7 @@ export const WeatherDataCard = ({
 }) => {
   return (
     <div
+      data-testid={"weather-data-card"}
       className={
         "border p-4 rounded-md flex flex-col items-center justify-center"
       }

@@ -6,6 +6,7 @@ import suggestCities from "@/app/lib/suggestCities";
 import Loader from "@/app/components/Loader";
 import AutocompleteInput from "@/app/components/autocomplete/AutocompleteInput";
 import AutocompleteResults from "@/app/components/autocomplete/AutocompleteResults";
+import { Empty } from "@/app/components/Empty";
 
 const Autocomplete = () => {
   const [query, setQuery] = useState("");
@@ -21,7 +22,7 @@ const Autocomplete = () => {
       {isLoading ? (
         <Loader />
       ) : !data || !data.length ? (
-        <p>It seems we can't find this city</p>
+        <Empty children={"It seems we can't find this city"} />
       ) : (
         <AutocompleteResults query={query} setQuery={setQuery} data={data} />
       )}

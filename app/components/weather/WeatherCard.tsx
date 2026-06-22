@@ -27,10 +27,10 @@ export const WeatherCard = ({
         "border w-full p-10 flex gap-10 flex-col justify-center items-center"
       }
     >
-      <h1 className={"font-bold text-2xl"}>
+      <h1 className={"font-bold text-2xl"} data-testid={"weather-title"}>
         {name} {country}
       </h1>
-      <p>
+      <p data-testid={"weather-description"}>
         {weatherDesc.label} {weatherDesc.emoji}
       </p>
       <div className={"flex gap-5 justify-center"}>

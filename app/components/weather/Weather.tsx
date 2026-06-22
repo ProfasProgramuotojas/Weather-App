@@ -5,6 +5,7 @@ import { WeatherCard } from "@/app/components/weather/WeatherCard";
 import { useRouter, useSearchParams } from "next/navigation";
 import Loader from "@/app/components/Loader";
 import Error from "@/app/components/Error";
+import { Empty } from "@/app/components/Empty";
 
 const Weather = () => {
   const params = useSearchParams();
@@ -33,7 +34,8 @@ const Weather = () => {
     );
   }
   if (isLoading) return <Loader />;
-  if (!data || !name || !country) return <div>Please Select a city</div>;
+  if (!data || !name || !country)
+    return <Empty children={"Please Select a city"} />;
   return <WeatherCard currentWeather={data} name={name} country={country} />;
 };
 

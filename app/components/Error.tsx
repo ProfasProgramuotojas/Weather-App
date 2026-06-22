@@ -1,6 +1,7 @@
 function Error({ onRetry }: { onRetry: () => void }) {
   return (
     <div
+      data-testid={"error-state"}
       className={
         "fixed inset-0 w-screen h-screen flex justify-center items-center bg-[rgba(251,44,54,0.3)]"
       }

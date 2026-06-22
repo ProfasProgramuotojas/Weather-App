@@ -104,3 +104,5 @@ export const TEST_EXAMPLE_CITIES = [
 ];
 
 export const TEST_LIMIT = LIMIT;
+
+export const TESTING_URL = "http://localhost:3000/";

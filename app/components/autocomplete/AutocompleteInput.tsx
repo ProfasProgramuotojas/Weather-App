@@ -9,6 +9,7 @@ function AutocompleteInput({
 }) {
   return (
     <input
+      type="search"
       className={"border border-black"}
       value={query}
       onChange={(e) => {
