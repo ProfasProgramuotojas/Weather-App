@@ -52,10 +52,9 @@ function AutocompleteResults({
   data: CityType[];
   setQuery: (q: string) => void;
 }) {
-  const { storedValue: prevCities, setValue: setPrevCities } = useLocalStorage(
-    "autocomplete",
-    [],
-  );
+  const { storedValue: prevCities, setValue: setPrevCities } = useLocalStorage<
+    CityType[]
+  >("autocomplete", []);
 
   return (
     <div className="flex flex-col gap-2">

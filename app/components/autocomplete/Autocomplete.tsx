@@ -14,8 +14,9 @@ const Autocomplete = () => {
   const { data, isLoading } = useQuery({
     queryKey: ["cities", query],
     queryFn: async () => await suggestCities(query),
+    staleTime: 1000 * 30,
   });
-  console.log(data);
+
   return (
     <div>
       <AutocompleteInput query={query} setQuery={setQuery} />

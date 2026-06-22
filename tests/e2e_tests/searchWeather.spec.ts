@@ -11,7 +11,7 @@ const cities = citiesData as CityType[];
 test(`Search Valid City`, async ({ page }) => {
   await page.goto(TESTING_URL);
 
-  const cityIndex = Math.round(Math.random() * cities.length);
+  const cityIndex = Math.floor(Math.random() * cities.length);
   const cityName = cities[cityIndex].name;
   const cityCountry = cities[cityIndex].country;
 
@@ -33,7 +33,7 @@ test(`Search Invalid City`, async ({ page }) => {
 test(`Test Previously Searched Cities`, async ({ page }) => {
   await page.goto(TESTING_URL);
 
-  const cityIndex = Math.round(Math.random() * cities.length);
+  const cityIndex = Math.floor(Math.random() * cities.length);
   const cityName = cities[cityIndex].name;
   const cityCountry = cities[cityIndex].country;
 

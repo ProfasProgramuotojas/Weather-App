@@ -31,7 +31,7 @@ const suggestCities = async (query: string): Promise<CityType[]> => {
       .filter(
         (c) =>
           c.name.toLowerCase().includes(searchQuery) ||
-          c.ascii.includes(searchQuery),
+          c.ascii.toLowerCase().includes(searchQuery),
       )
       .filter((c) => !autocompletedCities.some((ac) => ac.id === c.id));
 
