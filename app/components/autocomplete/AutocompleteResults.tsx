@@ -35,9 +35,13 @@ const AutocompleteOption = ({
       onClick={() => {
         setQuery("");
         setPrevCities(addPrevCity(prevCities, city));
-        router.push(
-          `/?lat=${city.lat}&lon=${city.lon}&name=${city.name}&country=${city.country}`,
-        );
+        const sp = new URLSearchParams({
+          lat: String(city.lat),
+          lon: String(city.lon),
+          name: city.name,
+          country: city.country,
+        });
+        router.push(`/?${sp}`);
       }}
     >
       <MapPinIcon className="h-5 w-5 shrink-0 text-blue-400" />
