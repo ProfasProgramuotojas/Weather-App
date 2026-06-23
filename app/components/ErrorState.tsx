@@ -1,6 +1,6 @@
 import { WarningIcon } from "@/app/components/icons/WarningIcon";
 
-function Error({ onRetry }: { onRetry: () => void }) {
+function ErrorState({ onRetry }: { onRetry: () => void }) {
   return (
     <div
       data-testid={"error-state"}
@@ -29,4 +29,4 @@ function Error({ onRetry }: { onRetry: () => void }) {
   );
 }
 
-export default Error;
+export default ErrorState;

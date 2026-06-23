@@ -1,42 +1,47 @@
-import React from "react";
 import fetchWeather from "@/app/lib/fetchWeather";
 import { useQuery } from "@tanstack/react-query";
 import { WeatherCard } from "@/app/components/weather/WeatherCard";
 import { useRouter, useSearchParams } from "next/navigation";
 import Loader from "@/app/components/Loader";
-import Error from "@/app/components/Error";
 import { Empty } from "@/app/components/Empty";
+import { validateUrlCity } from "@/app/validation/validateWeatherURL";
+import ErrorState from "@/app/components/ErrorState";
 
 const Weather = () => {
   const params = useSearchParams();
   const router = useRouter();
 
-  const lon = params.get("lon");
-  const lat = params.get("lat");
-  const name = params.get("name");
-  const country = params.get("country");
+  const res = validateUrlCity(params);
+  const city = res.data!;
 
-  const { data, isLoading, isError, refetch } = useQuery({
-    queryFn: async () => await fetchWeather(Number(lat), Number(lon)),
-    queryKey: ["weather", lon, lat],
-    enabled: !(lon === null || lat === null),
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ["weather", city?.lat, city?.lon],
+    queryFn: () => {
+      if (!city) throw new Error("missing city params");
+      return fetchWeather(city.lat, city.lon);
+    },
+    enabled: res.success,
     retry: 1,
   });
 
-  if (isError) {
+  if (isError)
     return (
-      <Error
+      <ErrorState
         onRetry={() => {
           router.push("/");
-          void refetch();
         }}
       />
     );
-  }
   if (isLoading) return <Loader />;
-  if (!data || !name || !country)
-    return <Empty children={"Please Select a city"} />;
-  return <WeatherCard currentWeather={data} name={name} country={country} />;
+  if (!data || !city) return <Empty children={"Please Select a city"} />;
+
+  return (
+    <WeatherCard
+      currentWeather={data}
+      name={city.name}
+      country={city.country}
+    />
+  );
 };
 
 export default Weather;

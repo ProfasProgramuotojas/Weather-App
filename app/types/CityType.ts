@@ -8,3 +8,5 @@ export type CityType = {
   population: number;
   timezone: string;
 };
+
+export type URLCityType = Pick<CityType, "name" | "country" | "lat" | "lon">;
