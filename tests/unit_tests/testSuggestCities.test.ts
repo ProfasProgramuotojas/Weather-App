@@ -1,4 +1,3 @@
-"use server";
 import { expect, test } from "vitest";
 import suggestCities from "@/app/lib/suggestCities";
 import { TEST_LIMIT } from "@/tests/testingConstants";
@@ -6,7 +5,7 @@ import { CityType } from "@/app/types/CityType";
 import citiesData from "../../app/data/cities.json";
 
 const cities = citiesData as CityType[];
-const TEST_BIGGEST_CITIES = cities.splice(0, TEST_LIMIT);
+const TEST_BIGGEST_CITIES = [...cities].splice(0, TEST_LIMIT);
 
 const TEST_SIAULIAI_CITY = {
   id: 594739,

@@ -48,5 +48,5 @@ test(`Test Invalid URL`, async ({ page }) => {
   await page.goto(
     `${TESTING_URL}/?lat=181&lon=23.31667&name=Šiauliai&country=LT`,
   );
-  await expect(page.getByTestId("error-state")).toBeVisible();
+  await expect(page.getByTestId("empty-state")).toBeVisible();
 });

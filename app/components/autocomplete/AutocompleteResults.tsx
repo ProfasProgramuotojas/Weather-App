@@ -67,21 +67,21 @@ function AutocompleteResults({
     CityType[]
   >("autocomplete", []);
 
+  //If no query and no prevCities, then shows the largest cities, if no query and there is prevCities, then show prevCities
+  const itemsToShow =
+    (!query && !prevCities.length) || query ? data : prevCities;
   return (
     <div className="rounded-2xl border border-slate-200 bg-white/80 p-2 shadow-sm backdrop-blur">
       <div className="scroll-slim flex max-h-72 flex-col gap-1 overflow-y-auto">
-        {/*If no query and no prevCities, then shows the largest cities, if no query and there is prevCities, then show prevCities*/}
-        {((!query && !prevCities.length) || query ? data : prevCities).map(
-          (c: CityType) => (
-            <AutocompleteOption
-              setQuery={setQuery}
-              city={c}
-              key={c.id}
-              prevCities={prevCities}
-              setPrevCities={setPrevCities}
-            />
-          ),
-        )}
+        {itemsToShow.map((c: CityType) => (
+          <AutocompleteOption
+            setQuery={setQuery}
+            city={c}
+            key={c.id}
+            prevCities={prevCities}
+            setPrevCities={setPrevCities}
+          />
+        ))}
       </div>
     </div>
   );

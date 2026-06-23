@@ -11,15 +11,7 @@ export const WeatherCard = ({
   name: string;
   country: string;
 }) => {
-  const weatherCodeKeys = Object.keys(WEATHER_CODES);
-  const goal = currentWeather.weather_code;
-  const closest = weatherCodeKeys.reduce(function (prev, curr) {
-    return Math.abs(Number(curr) - goal) < Math.abs(Number(prev) - goal)
-      ? curr
-      : prev;
-  });
-
-  const weatherDesc = WEATHER_CODES[Number(closest)];
+  const weatherDesc = WEATHER_CODES[Number(currentWeather.weather_code)];
 
   return (
     <div className="flex w-full flex-col items-center gap-6 rounded-3xl border border-slate-200 bg-white/80 p-6 text-center shadow-sm backdrop-blur sm:p-8">
