@@ -8,7 +8,7 @@ import { serverLog } from "@/app/lib/serverLog";
 const fetchWeather = async (
   lat: number,
   lon: number,
-): Promise<CurrentWeatherType | null> => {
+): Promise<CurrentWeatherType> => {
   try {
     const params = {
       latitude: lat,
