@@ -50,4 +50,6 @@ How well have i completed the task (exclude readme), and what improvements could
 ___
 Use this Template and write the whole of README.md: {Template},  also include any  assumptions, tradeoffs, or known limitations: for not using debounce (makes it look laggy), create assumptions or tradeoffs if you find any
 ___
-
+Optimize and make it so this algorithm would return limited results under 3 characters: {suggestCities.ts}
+Also Benchmark your new algorithm against my old one
+___
