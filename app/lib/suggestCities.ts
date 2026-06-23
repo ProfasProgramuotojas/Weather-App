@@ -8,7 +8,7 @@ const cities = citiesData as CityType[];
 
 // Tunables: short queries (potentially huge match sets) get capped;
 // longer queries return the full match set.
-const SHORT_MAX_LEN = 3; // queries <= this length are capped
+const SHORT_MAX_LEN = 2; // queries <= this length are capped
 const SHORT_CAP = 50; // ...to at most this many results
 
 // ----- indices, built once at module load -----
