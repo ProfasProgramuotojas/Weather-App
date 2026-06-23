@@ -7,7 +7,7 @@ import { serverLog } from "@/app/lib/serverLog";
 
 const cities = citiesData as CityType[];
 
-//top  5 most populated cities in the world
+//top LIMIT most populated cities in the world
 const topCities = cities.slice(0, LIMIT);
 
 const suggestCities = async (query: string): Promise<CityType[]> => {

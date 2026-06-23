@@ -17,7 +17,6 @@ const Weather = () => {
   const { data, isLoading, isError } = useQuery({
     queryKey: ["weather", city?.lat, city?.lon],
     queryFn: () => {
-      if (!city) throw new Error("missing city params");
       return fetchWeather(city.lat, city.lon);
     },
     enabled: res.success,
@@ -33,7 +32,7 @@ const Weather = () => {
       />
     );
   if (isLoading) return <Loader />;
-  if (!data || !city) return <Empty children={"Please Select a city"} />;
+  if (!data || !city) return <Empty>Please Select a city</Empty>;
 
   return (
     <WeatherCard

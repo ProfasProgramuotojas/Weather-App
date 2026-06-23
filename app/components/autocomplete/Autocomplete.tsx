@@ -11,7 +11,7 @@ import { Empty } from "@/app/components/Empty";
 const Autocomplete = () => {
   const [query, setQuery] = useState("");
 
-  const { data, isLoading } = useQuery({
+  const { data, isFetching } = useQuery({
     queryKey: ["cities", query],
     queryFn: async () => await suggestCities(query),
     staleTime: 1000 * 30,
@@ -20,10 +20,10 @@ const Autocomplete = () => {
   return (
     <div className="flex flex-col gap-3">
       <AutocompleteInput query={query} setQuery={setQuery} />
-      {isLoading ? (
+      {isFetching ? (
         <Loader />
       ) : !data || !data.length ? (
-        <Empty children={"It seems we can't find this city"} />
+        <Empty>{`It seems we can\'t find this city`}</Empty>
       ) : (
         <AutocompleteResults query={query} setQuery={setQuery} data={data} />
       )}
